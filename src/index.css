@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+a {
+  position: relative;
+  transition: all 0.3s ease-in;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: #007bff;
+  transition: width 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+a:hover::after {
+  width: 100%;
+}
