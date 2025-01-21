@@ -2,16 +2,13 @@ import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IRegisterForm } from "../../types/types";
+import { IRegisterForm, Roles } from "../../types/types";
+import { InputFormAuth } from "../../components/InputFormAuth/InputFormAuth";
 
 import styles from "./Register.module.css";
-
-
+import { ROLE } from "../../constants/constants";
 
 export const RegisterPage: React.FC = () => {
-  
-  const role = ["PARTICIPANT", "JUDGE"];
-
   const {
     register,
     handleSubmit,
@@ -35,96 +32,62 @@ export const RegisterPage: React.FC = () => {
           <h1 className={styles.registerTitle}>Регистрация</h1>
           <div className={styles.registerFormWrapper}>
             <Form onSubmit={handleSubmit(submitRegisterForm)}>
-              <Form.Group className="mb-3">
-                <Form.Control
-                  type="text"
-                  placeholder="Укажите Имя"
-                  {...register("name", {
-                    required: "Имя обязательно к заполнению",
-                    minLength: {
-                      value: 1,
-                      message: "Имя должно состоять минимум из одного символа",
-                    },
-                    maxLength: {
-                      value: 40,
-                      message:
-                        "Максимальное значение имени не может содержать более 40 символов",
-                    },
-                  })}
-                />
-                {errors.name && (
-                  <Form.Text className={styles.danger}>
-                    {errors.name.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
+              <InputFormAuth
+                className="mb-3"
+                placeholder="Укажите Имя"
+                type="text"
+                registerName="name"
+                requiredMessage="Имя обязательно к заполнению"
+                minLengthValue={1}
+                minLengthMessage="Имя должно состоять минимум из одного символа"
+                maxLengthValue={40}
+                maxLengthMessage="Максимальное значение имени не может содержать более 40 символов"
+                register={register}
+                error={errors.name}
+              />
 
-              <Form.Group className="mb-3">
-                <Form.Control
-                  placeholder="Укажите Имя в Instagram"
-                  {...register("instagramName", {
-                    required: "Имя в Instagram обязательно к заполнению",
-                    minLength: {
-                      value: 1,
-                      message:
-                        "Имя в Instagram должно состоять минимум из одного символа",
-                    },
-                    maxLength: {
-                      value: 40,
-                      message:
-                        "Максимальное значение имя в Instagram не может содержать более 40 символов",
-                    },
-                  })}
-                />
-                {errors.instagramName && (
-                  <Form.Text className={styles.danger}>
-                    {errors.instagramName.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
+              <InputFormAuth
+                className="mb-3"
+                placeholder="Укажите Имя в Instagram"
+                type="text"
+                registerName="instagramName"
+                requiredMessage="Имя в Instagram обязательно к заполнению"
+                minLengthValue={1}
+                minLengthMessage="Имя в Instagram должно состоять минимум из одного символа"
+                maxLengthValue={40}
+                maxLengthMessage="Максимальное значение имя в Instagram не может содержать более 40 символов"
+                register={register}
+                error={errors.instagramName}
+              />
 
-              <Form.Group className="mb-3">
-                <Form.Control
-                  type="email"
-                  placeholder="Укажите email"
-                  {...register("email", {
-                    required: "Email обязателен к заполнению",
-                    pattern: {
-                      value:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "Введите верный формат email ",
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <Form.Text className={styles.danger}>
-                    {errors.email.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
+              <InputFormAuth
+                className="mb-3"
+                placeholder="Укажите email"
+                type="email"
+                registerName="email"
+                requiredMessage="Email обязателен к заполнению"
+                register={register}
+                optionPattern={{
+                  value:
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: "Введите верный формат email ",
+                }}
+                error={errors.email}
+              />
 
-              <Form.Group className="mb-3">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  {...register("password", {
-                    required: "Пароль обязателен к заполнению",
-                    minLength: {
-                      value: 5,
-                      message: "Пароль должен содержать минимум 5 символов",
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: "Пароль не может содержать более 20 символов",
-                    },
-                  })}
-                />
-                {errors.password && (
-                  <Form.Text className={styles.danger}>
-                    {errors.password.message}
-                  </Form.Text>
-                )}
-              </Form.Group>
+              <InputFormAuth
+                className="mb-3"
+                placeholder="Придумайте пароль"
+                type="password"
+                registerName="password"
+                requiredMessage="Пароль обязателен к заполнению"
+                minLengthValue={5}
+                minLengthMessage="Пароль должен содержать минимум 5 символов"
+                maxLengthValue={20}
+                maxLengthMessage="Пароль не может содержать более 20 символов"
+                register={register}
+                error={errors.password}
+              />
 
               <Form.Group className="mb-3">
                 <Form.Select
@@ -133,8 +96,15 @@ export const RegisterPage: React.FC = () => {
                   })}
                 >
                   <option value="">Выберите роль</option>
-                  <option value={role[0]}>Участник</option>
-                  <option value={role[1]}>Судья</option>
+                  {ROLE.map((role, index) => (
+                    <option key={index} value={role}>
+                      {role === Roles.PARTICIPANT
+                        ? "Участник"
+                        : role === Roles.JUDGE
+                        ? "Судья"
+                        : null}
+                    </option>
+                  ))}
                 </Form.Select>
                 {errors.role && (
                   <p className={styles.danger}>{errors.role.message}</p>
