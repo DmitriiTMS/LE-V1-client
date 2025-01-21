@@ -6,7 +6,7 @@ import { IRegisterForm, Roles } from "../../types/types";
 import { InputFormAuth } from "../../components/InputFormAuth/InputFormAuth";
 
 import styles from "./Register.module.css";
-import { ROLE } from "../../constants/constants";
+import { ROLE_OBJ } from "../../constants/constants";
 
 export const RegisterPage: React.FC = () => {
   const {
@@ -21,7 +21,14 @@ export const RegisterPage: React.FC = () => {
   const submitRegisterForm: SubmitHandler<IRegisterForm> = (
     data: IRegisterForm
   ) => {
-    console.log(data);
+    ROLE_OBJ.forEach((role) => {
+      if (data.role == role.roleEnum) {
+        console.log({
+          ...data,
+          role: role.roleNameServer,
+        });
+      }
+    });
     reset();
   };
 
@@ -96,12 +103,12 @@ export const RegisterPage: React.FC = () => {
                   })}
                 >
                   <option value="">Выберите роль</option>
-                  {ROLE.map((role, index) => (
-                    <option key={index} value={role}>
-                      {role === Roles.PARTICIPANT
-                        ? "Участник"
-                        : role === Roles.JUDGE
-                        ? "Судья"
+                  {ROLE_OBJ.map((role, index) => (
+                    <option key={index} value={role.roleEnum}>
+                      {role.roleEnum === Roles.PARTICIPANT
+                        ? role.roleNameClient
+                        : role.roleEnum === Roles.JUDGE
+                        ? role.roleNameClient
                         : null}
                     </option>
                   ))}
