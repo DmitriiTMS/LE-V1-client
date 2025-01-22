@@ -10,7 +10,7 @@ export interface IRegisterForm {
   instagramName: string;
   email: string;
   password: string;
-  role: Roles;
+  role: Roles | string;
 }
 
 export interface IInputFormAuth<T extends FieldValues> {
