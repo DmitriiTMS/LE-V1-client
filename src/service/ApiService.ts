@@ -1,6 +1,6 @@
 import axios from "axios";
 import CryptoJS from "crypto-js";
-import { IRegisterForm } from "../types/types";
+import { AuthResponse, ILoginForm, IRegisterForm } from "../types/types";
 
 export default class ApiService {
   static BASE_URL = "http://localhost:4200/api/v1";
@@ -65,7 +65,7 @@ export default class ApiService {
     return response.data;
   }
 
-  static async loginUser(loginData: any) {
+  static async loginUser(loginData: ILoginForm): Promise<AuthResponse> {
     const response = await axios.post(`${this.BASE_URL}/auth/login`, loginData);
     return response.data;
   }

@@ -18,6 +18,11 @@ export interface ILoginForm {
   password: string;
 }
 
+export interface AuthResponse {
+  token: string;
+  role: string;
+};
+
 export interface IInputFormAuth<T extends FieldValues> {
   className: string;
   placeholder: string;
