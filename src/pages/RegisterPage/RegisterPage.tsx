@@ -139,7 +139,7 @@ export const RegisterPage: React.FC = () => {
             </div>
             {isError && error?.response?.data?.status !== 409 && (
               <div className={styles.danger}>
-                Упс!!! Что-то пошло при создании аккаунта!!!
+                Упс!!! Что-то пошло не так при создании аккаунта!!!
               </div>
             )}
             {isPending && <div>...Loading</div>}

@@ -13,6 +13,11 @@ export interface IRegisterForm {
   role: Roles | string;
 }
 
+export interface ILoginForm {
+  email: string;
+  password: string;
+}
+
 export interface IInputFormAuth<T extends FieldValues> {
   className: string;
   placeholder: string;
