@@ -1,12 +1,15 @@
-import { useMutation} from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import {ILoginForm } from "../../types/types";
+import { ILoginForm } from "../../types/types";
 import ApiService from "../../service/ApiService";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { addUser } from "../../store/slices/user/userSlice";
 
-export const UseAuthLogin = ()  => {
-
+export const UseAuthLogin = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { reset } = useForm<ILoginForm>();
   const navigate = useNavigate();
 
@@ -16,7 +19,7 @@ export const UseAuthLogin = ()  => {
     onSuccess(response) {
       toast.success("Вы вошли в аккаунт");
       ApiService.saveToken(response.token);
-      ApiService.saveRole(response.role);
+      dispatch(addUser(true))
 
       reset();
       navigate("/");

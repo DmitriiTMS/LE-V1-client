@@ -19,8 +19,11 @@ export interface ILoginForm {
 }
 
 export interface AuthResponse {
-  token: string;
-  role: string;
+  auth: boolean;
+};
+
+export interface AuthResponseToken {
+  token: string | null;
 };
 
 export interface IInputFormAuth<T extends FieldValues> {
@@ -36,4 +39,9 @@ export interface IInputFormAuth<T extends FieldValues> {
   register: UseFormRegister<T>;
   error?: FieldError;
   optionPattern?: any
+}
+
+export interface UserTokenPayload {
+  role: string;
+  id: number;
 }

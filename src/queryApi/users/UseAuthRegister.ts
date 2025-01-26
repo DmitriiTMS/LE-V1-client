@@ -4,8 +4,12 @@ import { IRegisterForm } from "../../types/types";
 import ApiService from "../../service/ApiService";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { addUser } from "../../store/slices/user/userSlice";
 
 export const UseAuthRegister = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { reset } = useForm<IRegisterForm>();
   const navigate = useNavigate();
 
@@ -14,9 +18,8 @@ export const UseAuthRegister = () => {
     mutationFn: (data: IRegisterForm) => ApiService.registerUser(data),
     onSuccess(response) {
       toast.success("Вы успешно зарегистрировали аккаунт");
-      console.log(response);
       ApiService.saveToken(response.token);
-      ApiService.saveRole(response.role);
+      dispatch(addUser(true));
       reset();
       navigate("/");
     },

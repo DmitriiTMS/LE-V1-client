@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import ApiService from "../../service/ApiService";
+import { useProfile } from "../../queryApi/users/UseProfile";
 
 export const PrivateAuthRoute = ({ children }: { children: ReactNode }) => {
-  const token = ApiService.getToken();
+  const { auth } = useProfile();
 
-  if (token) {
+  if (auth) {
     return <Navigate to="/" replace />;
   }
   return children;
